@@ -16,6 +16,9 @@ public class Main {
             }
             String input = scanner.nextLine();
             if ("end".equals(input)) {
+                for (int i = 0; i < products.length; i++) {
+                    sumProducts = sumProducts + shopCart[i] * prices[i];
+                }
                 break;
             }
 
@@ -46,10 +49,13 @@ public class Main {
                 System.out.println(" ");
                 continue;
             }
-
-            shopCart[productNumber] += productCount; // посчитали итоговое количество штук конкретного продукта
+            if (productCount != 0) {
+                shopCart[productNumber] += productCount; // посчитали итоговое количество штук конкретного продукта
+            } else {
+                shopCart[productNumber] = 0;
+            }
             int sum = productCount * prices[productNumber]; // посчитали цену конкретной позиции
-            sumProducts += sum; // посчитали общую сумму покупок
+            //sumProducts += sum; // посчитали общую сумму покупок
         }
         System.out.println("Ваша корзина:");
         for (int i = 0; i < products.length; i++) {
