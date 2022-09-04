@@ -31,6 +31,14 @@ public class Main {
 
             String input = scanner.nextLine();
             if ("end".equals(input)) {
+                for (int i = 0; i < products.length; i++) {
+                    sumProducts = sumProducts + shopCart[i] * prices[i];
+                }
+                for (int j = 0; j < saleShopCart.length; j++) {
+                    int saleKits = saleShopCart[j] / 3;
+                    int saleSum = salePrices[j] * (saleKits * 2 + saleShopCart[j] % 3);
+                    saleSumProducts += saleSum;
+                }
                 break;
             }
 
@@ -60,17 +68,25 @@ public class Main {
             }
 
             if (productNumber < products.length) {
-                shopCart[productNumber] += productCount; // посчитали итоговое количество штук конкретного продукта
+                if (productCount != 0) {
+                    shopCart[productNumber] += productCount; // посчитали итоговое количество штук конкретного продукта
+                    int sum = productCount * prices[productNumber]; // посчитали цену конкретной позиции
+                } else {
+                    shopCart[productNumber] = 0;
+                }
                 int sum = productCount * prices[productNumber]; // посчитали цену конкретной позиции
-                sumProducts += sum; // посчитали общую сумму покупок
+
             } else {
                 saleProductNumber = productNumber - products.length;
                 saleProductCount = productCount;
-                saleShopCart[saleProductNumber] += saleProductCount;
-                int saleKits = saleShopCart[saleProductNumber] / 3;
-                int saleSum = salePrices[saleProductNumber] * (saleKits * 2 + saleShopCart[saleProductNumber] % 3);
-                saleSumProducts += saleSum;
+                if (saleProductCount != 0) {
+                    saleShopCart[saleProductNumber] += saleProductCount;
+                } else {
+                    saleShopCart[saleProductNumber] = 0;
+                }
+
             }
+
         }
 
         System.out.println("Ваша корзина:");
